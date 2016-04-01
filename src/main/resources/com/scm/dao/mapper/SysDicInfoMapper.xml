@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.dao.SysDicInfoMapper">
+	<resultMap id="BaseResultMap" type="com.scm.po.SysDicInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="shop_id" property="shopId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, shop_id, name, type_code, sort, state, create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sys_dic_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sys_dic_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.scm.po.SysDicInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into sys_dic_info (id, shop_id, name,
+		type_code, sort, state,
+		create_time)
+		values (#{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{typeCode,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{state,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.scm.po.SysDicInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into sys_dic_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="shopId != null">
+				shop_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="typeCode != null">
+				type_code,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null">
+				#{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="typeCode != null">
+				#{typeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.scm.po.SysDicInfo">
+		update sys_dic_info
+		<set>
+			<if test="shopId != null">
+				shop_id = #{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="typeCode != null">
+				type_code = #{typeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.scm.po.SysDicInfo">
+		update sys_dic_info
+		set shop_id = #{shopId,jdbcType=INTEGER},
+		name = #{name,jdbcType=VARCHAR},
+		type_code = #{typeCode,jdbcType=VARCHAR},
+		sort = #{sort,jdbcType=INTEGER},
+		state = #{state,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- self data start -->
+	<select id="selectDicInfoByTypeCode" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_dic_info
+		where type_code = #{code,jdbcType=VARCHAR}
+		and shop_id in
+		(0,#{shopId,jdbcType=INTEGER})
+		and state!=-1
+		order by sort asc
+	</select>
+	<!-- self data end -->
+</mapper>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.dao.UserInfoMapper">
+	<resultMap id="BaseResultMap" type="com.scm.po.UserInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="login_name" property="loginName" jdbcType="VARCHAR" />
+		<result column="login_pwd" property="loginPwd" jdbcType="VARCHAR" />
+		<result column="reg_ip" property="regIp" jdbcType="VARCHAR" />
+		<result column="reg_address" property="regAddress" jdbcType="VARCHAR" />
+		<result column="recommend_code" property="recommendCode"
+			jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, nick_name, login_name, login_pwd, reg_ip,reg_address,
+		recommend_code, state, create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.scm.po.UserInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into user_info (id, nick_name, login_name,
+		login_pwd, reg_ip,
+		reg_address, recommend_code,
+		state, create_time)
+		values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR},
+		#{loginPwd,jdbcType=VARCHAR}, #{regIp,jdbcType=VARCHAR},
+		#{regAddress,jdbcType=VARCHAR}, #{recommendCode,jdbcType=VARCHAR},
+		#{state,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.scm.po.UserInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="nickName != null">
+				nick_name,
+			</if>
+			<if test="loginName != null">
+				login_name,
+			</if>
+			<if test="loginPwd != null">
+				login_pwd,
+			</if>
+			<if test="regIp != null">
+				reg_ip,
+			</if>
+
+			<if test="regAddress != null">
+				reg_address,
+			</if>
+
+			<if test="recommendCode != null">
+				recommend_code,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="nickName != null">
+				#{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginPwd != null">
+				#{loginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="regIp != null">
+				#{regIp,jdbcType=VARCHAR},
+			</if>
+
+			<if test="regAddress != null">
+				#{regAddress,jdbcType=VARCHAR},
+			</if>
+
+			<if test="recommendCode != null">
+				#{recommendCode,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.scm.po.UserInfo">
+		update user_info
+		<set>
+			<if test="nickName != null">
+				nick_name = #{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				login_name = #{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginPwd != null">
+				login_pwd = #{loginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="regIp != null">
+				reg_ip = #{regIp,jdbcType=VARCHAR},
+			</if>
+
+			<if test="regAddress != null">
+				reg_address = #{regAddress,jdbcType=VARCHAR},
+			</if>
+
+			<if test="recommendCode != null">
+				recommend_code = #{recommendCode,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.scm.po.UserInfo">
+		update user_info
+		set nick_name = #{nickName,jdbcType=VARCHAR},
+		login_name = #{loginName,jdbcType=VARCHAR},
+		login_pwd = #{loginPwd,jdbcType=VARCHAR},
+		reg_ip = #{regIp,jdbcType=VARCHAR},
+		reg_address = #{regAddress,jdbcType=VARCHAR},
+		recommend_code = #{recommendCode,jdbcType=VARCHAR},
+		state = #{state,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectByLoginName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from user_info
+		where login_name = #{loginName,jdbcType=VARCHAR}
+	</select>
+</mapper>

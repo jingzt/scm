@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.dao.ShopMaterialInfoMapper">
+	<resultMap id="BaseResultMap" type="com.scm.po.ShopMaterialInfo">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="shop_id" property="shopId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type_id" property="typeId" jdbcType="INTEGER" />
+		<result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+		<result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
+		<result column="unit_id" property="unitId" jdbcType="INTEGER" />
+		<result column="mark" property="mark" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="brand" property="brand" jdbcType="VARCHAR" />
+		<result column="specifications" property="specifications"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<association property="materialType" column="type_id"
+			select="com.scm.dao.SysDicInfoMapper.selectByPrimaryKey" />
+		<association property="unitType" column="unit_id"
+			select="com.scm.dao.SysDicInfoMapper.selectByPrimaryKey" />
+		<association property="supplier" column="supplier_id"
+			select="com.scm.dao.ShopSupplierInfoMapper.selectByPrimaryKey" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, shop_id, name, type_id, supplier_id, unit_price,
+		unit_id, mark,
+		state,brand, specifications,create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shop_material_info
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		shop_material_info
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.scm.po.ShopMaterialInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into shop_material_info
+		(ID, shop_id, name,
+		type_id, supplier_id, unit_price,
+		unit_id, mark,
+		state,brand, specifications,
+		create_time)
+		values
+		(#{id,jdbcType=INTEGER},
+		#{shopId,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{typeId,jdbcType=INTEGER},
+		#{supplierId,jdbcType=INTEGER},
+		#{unitPrice,jdbcType=DECIMAL},
+		#{unitId,jdbcType=INTEGER},
+		#{mark,jdbcType=VARCHAR},
+		#{state,jdbcType=INTEGER},
+		#{brand,jdbcType=VARCHAR},
+		#{specifications,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.scm.po.ShopMaterialInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into shop_material_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="shopId != null">
+				shop_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="supplierId != null">
+				supplier_id,
+			</if>
+			<if test="unitPrice != null">
+				unit_price,
+			</if>
+			<if test="unitId != null">
+				unit_id,
+			</if>
+			<if test="mark != null">
+				mark,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="brand != null">
+				brand,
+			</if>
+			<if test="specifications != null">
+				specifications,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null">
+				#{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="supplierId != null">
+				#{supplierId,jdbcType=INTEGER},
+			</if>
+			<if test="unitPrice != null">
+				#{unitPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="unitId != null">
+				#{unitId,jdbcType=INTEGER},
+			</if>
+			<if test="mark != null">
+				#{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="brand != null">
+				#{brand,jdbcType=VARCHAR},
+			</if>
+			<if test="specifications != null">
+				#{specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.scm.po.ShopMaterialInfo">
+		update shop_material_info
+		<set>
+			<if test="shopId != null">
+				shop_id = #{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				type_id = #{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="supplierId != null">
+				supplier_id = #{supplierId,jdbcType=INTEGER},
+			</if>
+			<if test="unitPrice != null">
+				unit_price = #{unitPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="unitId != null">
+				unit_id = #{unitId,jdbcType=INTEGER},
+			</if>
+			<if test="mark != null">
+				mark = #{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="brand != null">
+				brand=#{brand,jdbcType=VARCHAR},
+			</if>
+			<if test="specifications != null">
+				specifications=#{specifications,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.scm.po.ShopMaterialInfo">
+		update
+		shop_material_info
+		set shop_id = #{shopId,jdbcType=INTEGER},
+		name =
+		#{name,jdbcType=VARCHAR},
+		type_id = #{typeId,jdbcType=INTEGER},
+		supplier_id = #{supplierId,jdbcType=INTEGER},
+		unit_price =
+		#{unitPrice,jdbcType=DECIMAL},
+		unit_id = #{unitId,jdbcType=INTEGER},
+		mark = #{mark,jdbcType=VARCHAR},
+		state = #{state,jdbcType=INTEGER},
+		brand=#{brand,jdbcType=VARCHAR},
+		specifications=#{specifications,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where ID =
+		#{id,jdbcType=INTEGER}
+	</update>
+	<!-- Self Data Start -->
+	<select id="selectMaterialList" parameterType="com.scm.po.ShopMaterialInfo"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from shop_material_info
+		where state!=-1
+		<if test="shopId != null">
+			and shop_id = #{shopId,jdbcType=INTEGER}
+		</if>
+		<if test="name != null and name!='' ">
+			and  (name like concat(concat('%',
+			#{name,jdbcType=VARCHAR}), '%') or brand like concat(concat('%',
+			#{name,jdbcType=VARCHAR}), '%') or specifications like concat(concat('%',
+			#{name,jdbcType=VARCHAR}), '%') )
+		</if>
+		<if test="typeId != null">
+			and type_id = #{typeId,jdbcType=INTEGER}
+		</if>
+		<if test="supplierId != null">
+			and supplier_id = #{supplierId,jdbcType=INTEGER}
+		</if>
+		order by create_time desc
+	</select>
+	<!-- Self Data End -->
+</mapper>

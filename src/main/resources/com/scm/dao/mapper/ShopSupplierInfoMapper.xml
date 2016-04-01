@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.dao.ShopSupplierInfoMapper">
+	<resultMap id="BaseResultMap" type="com.scm.po.ShopSupplierInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="shop_id" property="shopId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type_id" property="typeId" jdbcType="INTEGER" />
+		<result column="contact_information" property="contactInformation"
+			jdbcType="VARCHAR" />
+		<result column="province_id" property="provinceId" jdbcType="INTEGER" />
+		<result column="province_name" property="provinceName"
+			jdbcType="VARCHAR" />
+		<result column="city_id" property="cityId" jdbcType="INTEGER" />
+		<result column="city_name" property="cityName" jdbcType="VARCHAR" />
+		<result column="district_id" property="districtId" jdbcType="INTEGER" />
+		<result column="district_name" property="districtName"
+			jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="address_net" property="addressNet" jdbcType="VARCHAR" />
+		<result column="level_id" property="levelId" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<association property="supplierType" column="type_id"
+			select="com.scm.dao.SysDicInfoMapper.selectByPrimaryKey" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, shop_id, name, type_id, contact_information,
+		province_id,
+		province_name, city_id,
+		city_name, district_id,
+		district_name, address, address_net, level_id, state,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shop_supplier_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		shop_supplier_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.scm.po.ShopSupplierInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into shop_supplier_info
+		(id, shop_id, name,
+		type_id, contact_information, province_id,
+		province_name, city_id, city_name,
+		district_id, district_name, address,
+		address_net, level_id, state,
+		create_time)
+		values
+		(#{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
+		#{typeId,jdbcType=INTEGER},
+		#{contactInformation,jdbcType=VARCHAR},
+		#{provinceId,jdbcType=INTEGER},
+		#{provinceName,jdbcType=VARCHAR},
+		#{cityId,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR},
+		#{districtId,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{addressNet,jdbcType=VARCHAR},
+		#{levelId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.scm.po.ShopSupplierInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into shop_supplier_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="shopId != null">
+				shop_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="contactInformation != null">
+				contact_information,
+			</if>
+			<if test="provinceId != null">
+				province_id,
+			</if>
+			<if test="provinceName != null">
+				province_name,
+			</if>
+			<if test="cityId != null">
+				city_id,
+			</if>
+			<if test="cityName != null">
+				city_name,
+			</if>
+			<if test="districtId != null">
+				district_id,
+			</if>
+			<if test="districtName != null">
+				district_name,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="addressNet != null">
+				address_net,
+			</if>
+			<if test="levelId != null">
+				level_id,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null">
+				#{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="contactInformation != null">
+				#{contactInformation,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceId != null">
+				#{provinceId,jdbcType=INTEGER},
+			</if>
+			<if test="provinceName != null">
+				#{provinceName,jdbcType=VARCHAR},
+			</if>
+			<if test="cityId != null">
+				#{cityId,jdbcType=INTEGER},
+			</if>
+			<if test="cityName != null">
+				#{cityName,jdbcType=VARCHAR},
+			</if>
+			<if test="districtId != null">
+				#{districtId,jdbcType=INTEGER},
+			</if>
+			<if test="districtName != null">
+				#{districtName,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="addressNet != null">
+				#{addressNet,jdbcType=VARCHAR},
+			</if>
+			<if test="levelId != null">
+				#{levelId,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.scm.po.ShopSupplierInfo">
+		update shop_supplier_info
+		<set>
+			<if test="shopId != null">
+				shop_id = #{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				type_id = #{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="contactInformation != null">
+				contact_information =
+				#{contactInformation,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceId != null">
+				province_id = #{provinceId,jdbcType=INTEGER},
+			</if>
+			<if test="provinceName != null">
+				province_name = #{provinceName,jdbcType=VARCHAR},
+			</if>
+			<if test="cityId != null">
+				city_id = #{cityId,jdbcType=INTEGER},
+			</if>
+			<if test="cityName != null">
+				city_name = #{cityName,jdbcType=VARCHAR},
+			</if>
+			<if test="districtId != null">
+				district_id = #{districtId,jdbcType=INTEGER},
+			</if>
+			<if test="districtName != null">
+				district_name = #{districtName,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="addressNet != null">
+				address_net = #{addressNet,jdbcType=VARCHAR},
+			</if>
+			<if test="levelId != null">
+				level_id = #{levelId,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.scm.po.ShopSupplierInfo">
+		update
+		shop_supplier_info
+		set shop_id = #{shopId,jdbcType=INTEGER},
+		name =
+		#{name,jdbcType=VARCHAR},
+		type_id = #{typeId,jdbcType=INTEGER},
+		contact_information = #{contactInformation,jdbcType=VARCHAR},
+		province_id = #{provinceId,jdbcType=INTEGER},
+		province_name =
+		#{provinceName,jdbcType=VARCHAR},
+		city_id = #{cityId,jdbcType=INTEGER},
+		city_name = #{cityName,jdbcType=VARCHAR},
+		district_id =
+		#{districtId,jdbcType=INTEGER},
+		district_name =
+		#{districtName,jdbcType=VARCHAR},
+		address =
+		#{address,jdbcType=VARCHAR},
+		address_net =
+		#{addressNet,jdbcType=VARCHAR},
+		level_id = #{levelId,jdbcType=INTEGER},
+		state = #{state,jdbcType=INTEGER},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- Self Data Start -->
+	<select id="selectSupplierList" resultMap="BaseResultMap"
+		parameterType="com.scm.po.ShopSupplierInfo">
+		select
+		<include refid="Base_Column_List" />
+		from shop_supplier_info
+		where state!=-1
+		<if test="shopId != null">
+			and shop_id = #{shopId,jdbcType=INTEGER}
+		</if>
+		<if test="name != null and name!='' ">
+			and name like concat(concat('%',
+			#{name,jdbcType=VARCHAR}), '%')
+		</if>
+		<if test="typeId != null">
+			and type_id = #{typeId,jdbcType=INTEGER}
+		</if>
+		<if test="levelId != null">
+			and level_id = #{levelId,jdbcType=INTEGER}
+		</if>
+		order by create_time desc
+	</select>
+	<!-- Self Data End -->
+</mapper>

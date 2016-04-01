@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.dao.ShopPurchaseDetailInfoMapper">
+	<resultMap id="BaseResultMap" type="com.scm.po.ShopPurchaseDetailInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="shop_id" property="shopId" jdbcType="INTEGER" />
+		<result column="material_id" property="materialId" jdbcType="INTEGER" />
+		<result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
+		<result column="unit_id" property="unitId" jdbcType="INTEGER" />
+		<result column="total_num" property="totalNum" jdbcType="DECIMAL" />
+		<result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
+		<result column="mark" property="mark" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="DATE" />
+		<association property="unitType" column="unit_id"
+			select="com.scm.dao.SysDicInfoMapper.selectByPrimaryKey" />
+		<association property="material" column="material_id"
+			select="com.scm.dao.ShopMaterialInfoMapper.selectByPrimaryKey" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, shop_id, material_id, unit_price, unit_id, total_num,
+		total_money,
+		mark, state,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shop_purchase_detail_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		shop_purchase_detail_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.scm.po.ShopPurchaseDetailInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		shop_purchase_detail_info (id, shop_id, material_id,
+		unit_price,
+		unit_id, total_num,
+		total_money, mark, state,
+		create_time)
+		values
+		(#{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER},
+		#{materialId,jdbcType=INTEGER},
+		#{unitPrice,jdbcType=DECIMAL},
+		#{unitId,jdbcType=INTEGER}, #{totalNum,jdbcType=DECIMAL},
+		#{totalMoney,jdbcType=DECIMAL}, #{mark,jdbcType=VARCHAR},
+		#{state,jdbcType=INTEGER},
+		#{createTime,jdbcType=DATE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.scm.po.ShopPurchaseDetailInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into shop_purchase_detail_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="shopId != null">
+				shop_id,
+			</if>
+			<if test="materialId != null">
+				material_id,
+			</if>
+			<if test="unitPrice != null">
+				unit_price,
+			</if>
+			<if test="unitId != null">
+				unit_id,
+			</if>
+			<if test="totalNum != null">
+				total_num,
+			</if>
+			<if test="totalMoney != null">
+				total_money,
+			</if>
+			<if test="mark != null">
+				mark,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null">
+				#{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="materialId != null">
+				#{materialId,jdbcType=INTEGER},
+			</if>
+			<if test="unitPrice != null">
+				#{unitPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="unitId != null">
+				#{unitId,jdbcType=INTEGER},
+			</if>
+			<if test="totalNum != null">
+				#{totalNum,jdbcType=DECIMAL},
+			</if>
+			<if test="totalMoney != null">
+				#{totalMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="mark != null">
+				#{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.scm.po.ShopPurchaseDetailInfo">
+		update shop_purchase_detail_info
+		<set>
+			<if test="shopId != null">
+				shop_id = #{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="materialId != null">
+				material_id = #{materialId,jdbcType=INTEGER},
+			</if>
+			<if test="unitPrice != null">
+				unit_price = #{unitPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="unitId != null">
+				unit_id = #{unitId,jdbcType=INTEGER},
+			</if>
+			<if test="totalNum != null">
+				total_num = #{totalNum,jdbcType=DECIMAL},
+			</if>
+			<if test="totalMoney != null">
+				total_money = #{totalMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="mark != null">
+				mark = #{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=DATE},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.scm.po.ShopPurchaseDetailInfo">
+		update
+		shop_purchase_detail_info
+		set shop_id = #{shopId,jdbcType=INTEGER},
+		material_id = #{materialId,jdbcType=INTEGER},
+		unit_price =
+		#{unitPrice,jdbcType=DECIMAL},
+		unit_id = #{unitId,jdbcType=INTEGER},
+		total_num = #{totalNum,jdbcType=DECIMAL},
+		total_money =
+		#{totalMoney,jdbcType=DECIMAL},
+		mark = #{mark,jdbcType=VARCHAR},
+		state =
+		#{state,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=DATE}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- Self Data Start -->
+	<select id="selectPurchaseInfoList" parameterType="com.scm.po.ShopPurchaseDetailInfo"
+		resultMap="BaseResultMap">
+		SELECT a.*
+		FROM shop_purchase_detail_info a , shop_material_info b 
+		WHERE a.material_id=b.id
+		<if test="shopId != null">
+			and a.shop_id = #{shopId,jdbcType=INTEGER}
+		</if>
+		<if test="materialId != null">
+			and a.material_id = #{materialId,jdbcType=INTEGER}
+		</if>
+		<if test="materialTypeId != null">
+			and b.type_id = #{materialTypeId,jdbcType=INTEGER}
+		</if>
+		<if test="createTime != null">
+			and a.create_time = #{createTime,jdbcType=DATE}
+		</if>
+		order by a.create_time desc
+	</select>
+	<select id="selectTotalMoneyByCreateTime" resultMap="BaseResultMap">
+		SELECT t.create_time , SUM(t.total_money) AS total_money
+		FROM shop_purchase_detail_info t
+		where t.shop_id=#{shopId,jdbcType=INTEGER}
+		<if test="startDate != null and startDate!=''">
+			and t.create_time>=#{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and endDate!=''">
+		 	<![CDATA[and t.create_time<=#{endDate,jdbcType=VARCHAR}]]>
+		</if>
+		GROUP BY t.create_time
+		ORDER BY t.create_time asc
+	</select>
+	<update id="updateTotalMoney" parameterType="java.lang.Integer">
+		update shop_purchase_detail_info set total_money=unit_price*total_num 
+		where id=#{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectMonthTotalPurchase" resultMap="BaseResultMap">
+		SELECT 
+		  IFNULL(SUM(t.total_money),0) AS total_money
+		FROM
+		  shop_purchase_detail_info t 
+		WHERE t.state != - 1 
+		  AND t.shop_id = #{shopId,jdbcType=INTEGER} 
+		  AND DATE_FORMAT(t.create_time,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m') 
+	</select>
+	<!-- Self Data End -->
+</mapper>

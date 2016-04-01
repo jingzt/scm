@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.dao.ShopIncomeDetailInfoMapper">
+	<resultMap id="BaseResultMap" type="com.scm.po.ShopIncomeDetailInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="shop_id" property="shopId" jdbcType="INTEGER" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="unit_price" property="unitPrice" jdbcType="DECIMAL" />
+		<result column="consumption_style_id" property="consumptionStyleId"
+			jdbcType="INTEGER" />
+		<result column="total_num" property="totalNum" jdbcType="INTEGER" />
+		<result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+		<result column="mark" property="mark" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="DATE" />
+
+		<result column="month" property="month" jdbcType="VARCHAR" />
+		<result column="total_money" property="totalMoney" jdbcType="DECIMAL" />
+		<association property="product" column="product_id"
+			select="com.scm.dao.ShopProductInfoMapper.selectByPrimaryKey" />
+		<association property="unitType" column="unit_id"
+			select="com.scm.dao.SysDicInfoMapper.selectByPrimaryKey" />
+		<association property="consumptionStyle" column="consumption_style_id"
+			select="com.scm.dao.SysDicInfoMapper.selectByPrimaryKey" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, shop_id, product_id, unit_price,consumption_style_id,
+		total_num, total_price, mark, state,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shop_income_detail_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		shop_income_detail_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.scm.po.ShopIncomeDetailInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		shop_income_detail_info (id, shop_id, product_id,
+		unit_price,consumption_style_id, total_num,
+		total_price, mark, state,
+		create_time)
+		values (#{id,jdbcType=INTEGER},
+		#{shopId,jdbcType=INTEGER},
+		#{productId,jdbcType=INTEGER},
+		#{unitPrice,jdbcType=DECIMAL},#{consumptionStyleId,jdbcType=INTEGER},
+		#{totalNum,jdbcType=INTEGER},
+		#{totalPrice,jdbcType=DECIMAL},
+		#{mark,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
+		#{createTime,jdbcType=DATE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.scm.po.ShopIncomeDetailInfo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into shop_income_detail_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="shopId != null">
+				shop_id,
+			</if>
+			<if test="productId != null">
+				product_id,
+			</if>
+			<if test="unitPrice != null">
+				unit_price,
+			</if>
+			<if test="consumptionStyleId != null">
+				consumption_style_id,
+			</if>
+			<if test="totalNum != null">
+				total_num,
+			</if>
+			<if test="totalPrice != null">
+				total_price,
+			</if>
+			<if test="mark != null">
+				mark,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="shopId != null">
+				#{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=INTEGER},
+			</if>
+			<if test="unitPrice != null">
+				#{unitPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="consumptionStyleId != null">
+				#{consumptionStyleId,jdbcType=INTEGER},
+			</if>
+			<if test="totalNum != null">
+				#{totalNum,jdbcType=INTEGER},
+			</if>
+			<if test="totalPrice != null">
+				#{totalPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="mark != null">
+				#{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.scm.po.ShopIncomeDetailInfo">
+		update shop_income_detail_info
+		<set>
+			<if test="shopId != null">
+				shop_id = #{shopId,jdbcType=INTEGER},
+			</if>
+			<if test="productId != null">
+				product_id = #{productId,jdbcType=INTEGER},
+			</if>
+			<if test="unitPrice != null">
+				unit_price = #{unitPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="consumptionStyleId != null">
+				consumption_style_id=
+				#{consumptionStyleId,jdbcType=INTEGER},
+			</if>
+			<if test="totalNum != null">
+				total_num = #{totalNum,jdbcType=INTEGER},
+			</if>
+			<if test="totalPrice != null">
+				total_price = #{totalPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="mark != null">
+				mark = #{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=DATE},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.scm.po.ShopIncomeDetailInfo">
+		update
+		shop_income_detail_info
+		set shop_id = #{shopId,jdbcType=INTEGER},
+		product_id = #{productId,jdbcType=INTEGER},
+		unit_price =
+		#{unitPrice,jdbcType=DECIMAL},
+		total_num =
+		#{totalNum,jdbcType=INTEGER},
+		total_price =
+		#{totalPrice,jdbcType=DECIMAL},
+		mark = #{mark,jdbcType=VARCHAR},
+		state =
+		#{state,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=DATE}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- Self Data Start -->
+	<select id="selectIncomeInfoList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		from shop_income_detail_info t
+		WHERE t.shop_id =
+		#{shopId,jdbcType=INTEGER} and t.create_time =
+		#{date,jdbcType=VARCHAR}
+		ORDER BY t.id asc
+	</select>
+	<select id="selectTotalMoneyByCreateTime" resultMap="BaseResultMap">
+		SELECT t.create_time , SUM(t.total_price) AS total_price
+		FROM
+		shop_income_detail_info t
+		WHERE shop_id = #{shopId,jdbcType=INTEGER}
+		<if test="startDate != null and startDate!=''">
+			and t.create_time>=#{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate != null and endDate!=''">
+		 	<![CDATA[and t.create_time<=#{endDate,jdbcType=VARCHAR}]]>
+		</if>
+		GROUP BY t.create_time
+		ORDER BY t.create_time asc
+	</select>
+	<select id="selectTodayTotalInCome" resultMap="BaseResultMap">
+		SELECT
+		IFNULL(SUM(t.total_price),0) AS total_price
+		FROM
+		shop_income_detail_info t
+		WHERE t.state != - 1
+		AND t.shop_id
+		=#{shopId,jdbcType=INTEGER}
+		AND t.create_time = date_format (CURDATE(),
+		'%Y-%m-%d')
+	</select>
+	<select id="selectMonthTotalInCome" resultMap="BaseResultMap">
+		SELECT
+		IFNULL(SUM(t.total_price),0) AS total_price
+		FROM
+		shop_income_detail_info t
+		WHERE t.state != - 1
+		AND t.shop_id
+		=#{shopId,jdbcType=INTEGER}
+		AND
+		DATE_FORMAT(t.create_time,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m')
+	</select>
+	<select id="selectBestSellerForDesc" resultMap="BaseResultMap">
+		SELECT
+		a.product_id,
+		IFNULL(SUM(a.total_num), 0) AS total_num,
+		IFNULL(SUM(a.total_price), 0) AS total_price
+		FROM
+		shop_income_detail_info a,
+		shop_product_info b
+		WHERE a.product_id = b.id
+		AND a.state != - 1
+		AND a.shop_id=#{shopId,jdbcType=INTEGER}
+		AND
+		DATE_FORMAT(a.create_time,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m')
+		GROUP BY a.product_id
+		ORDER BY total_price DESC
+	</select>
+	<select id="selectConsumptionStyleForDesc" resultMap="BaseResultMap">
+		SELECT
+		t.consumption_style_id,
+		IFNULL(SUM(t.total_num), 0) AS total_num,
+		IFNULL(SUM(t.total_price), 0) AS total_price
+		FROM
+		shop_income_detail_info t
+		WHERE t.state != - 1
+		AND t.shop_id =
+		#{shopId,jdbcType=INTEGER}
+		AND
+		DATE_FORMAT(t.create_time,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m')
+		GROUP BY t.consumption_style_id
+		ORDER BY total_price DESC
+	</select>
+	<select id="selectNearYearTotalData" resultMap="BaseResultMap">
+		<![CDATA[
+		SELECT 
+		  tt.month,
+		  IFNULL(t3.total_price, 0) AS total_price,
+		  IFNULL(t3.total_money, 0) AS total_money 
+		FROM
+		  (SELECT 
+		    DATE_FORMAT(CURDATE(), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 1 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 2 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 3 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 4 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 5 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 6 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 7 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 8 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT((CURDATE() - INTERVAL 9 MONTH), '%Y-%m') AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT(
+		      (CURDATE() - INTERVAL 10 MONTH),
+		      '%Y-%m'
+		    ) AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT(
+		      (CURDATE() - INTERVAL 11 MONTH),
+		      '%Y-%m'
+		    ) AS `month` 
+		  UNION
+		  SELECT 
+		    DATE_FORMAT(
+		      (CURDATE() - INTERVAL 12 MONTH),
+		      '%Y-%m'
+		    ) AS `month`) tt 
+		  LEFT JOIN 
+		    (SELECT 
+		      t1.create_time_1,
+		      t1.total_price,
+		      IFNULL(
+		        t1.total_price - IFNULL(t2.total_money, 0),
+		        0
+		      ) AS total_money 
+		    FROM
+		      (SELECT 
+		        IFNULL(SUM(a.`total_price`), 0) AS total_price,
+		        DATE_FORMAT(a.`create_time`, '%Y-%m') AS create_time_1 
+		      FROM
+		        shop_income_detail_info a 
+		      WHERE a.`state` != - 1 
+		        AND a.`shop_id` =#{shopId,jdbcType=INTEGER} 
+		        AND DATE_FORMAT(a.`create_time`, '%Y-%m') > DATE_FORMAT(
+		          DATE_SUB(CURDATE(), INTERVAL 12 MONTH),
+		          '%Y-%m'
+		        ) 
+		      GROUP BY create_time_1) t1 
+		      LEFT JOIN 
+		        (SELECT 
+		          IFNULL(SUM(b.`total_money`), 0) AS total_money,
+		          DATE_FORMAT(b.`create_time`, '%Y-%m') AS create_time_2 
+		        FROM
+		          shop_purchase_detail_info b 
+		        WHERE b.`state` != - 1 
+		          AND b.`shop_id` = #{shopId,jdbcType=INTEGER} 
+		          AND DATE_FORMAT(b.`create_time`, '%Y-%m') > DATE_FORMAT(
+		            DATE_SUB(CURDATE(), INTERVAL 12 MONTH),
+		            '%Y-%m'
+		          ) 
+		        GROUP BY create_time_2) t2 
+		        ON t1.create_time_1 = t2.create_time_2) t3 
+		    ON tt.month = t3.create_time_1 
+		 ]]>
+
+
+	</select>
+	<!-- Self Data End -->
+</mapper>

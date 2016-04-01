@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.dao.ShopProductMaterialRealtionMapper">
+	<resultMap id="BaseResultMap" type="com.scm.po.ShopProductMaterialRealtion">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="product_id" property="productId" jdbcType="INTEGER" />
+		<result column="material_id" property="materialId" jdbcType="INTEGER" />
+		<result column="material_unit_price" property="materialUnitPrice"
+			jdbcType="DECIMAL" />
+		<result column="material_total_num" property="materialTotalNum"
+			jdbcType="DECIMAL" />
+		<result column="material_total_money" property="materialTotalMoney"
+			jdbcType="DECIMAL" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<association property="product" column="product_id"
+			select="com.scm.dao.ShopProductInfoMapper.selectByPrimaryKey" />
+		<association property="material" column="material_id"
+			select="com.scm.dao.ShopMaterialInfoMapper.selectByPrimaryKey" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, product_id, material_id, material_unit_price,
+		material_total_num, material_total_money,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shop_product_material_realtion
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from shop_product_material_realtion
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.scm.po.ShopProductMaterialRealtion"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into shop_product_material_realtion (id, product_id, material_id,
+		material_unit_price, material_total_num,
+		material_total_money,
+		create_time)
+		values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER},
+		#{materialId,jdbcType=INTEGER},
+		#{materialUnitPrice,jdbcType=DECIMAL},
+		#{materialTotalNum,jdbcType=DECIMAL},
+		#{materialTotalMoney,jdbcType=DECIMAL},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.scm.po.ShopProductMaterialRealtion"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into shop_product_material_realtion
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="productId != null">
+				product_id,
+			</if>
+			<if test="materialId != null">
+				material_id,
+			</if>
+			<if test="materialUnitPrice != null">
+				material_unit_price,
+			</if>
+			<if test="materialTotalNum != null">
+				material_total_num,
+			</if>
+			<if test="materialTotalMoney != null">
+				material_total_money,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=INTEGER},
+			</if>
+			<if test="materialId != null">
+				#{materialId,jdbcType=INTEGER},
+			</if>
+			<if test="materialUnitPrice != null">
+				#{materialUnitPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="materialTotalNum != null">
+				#{materialTotalNum,jdbcType=DECIMAL},
+			</if>
+			<if test="materialTotalMoney != null">
+				#{materialTotalMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.scm.po.ShopProductMaterialRealtion">
+		update shop_product_material_realtion
+		<set>
+			<if test="productId != null">
+				product_id = #{productId,jdbcType=INTEGER},
+			</if>
+			<if test="materialId != null">
+				material_id = #{materialId,jdbcType=INTEGER},
+			</if>
+			<if test="materialUnitPrice != null">
+				material_unit_price = #{materialUnitPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="materialTotalNum != null">
+				material_total_num = #{materialTotalNum,jdbcType=DECIMAL},
+			</if>
+			<if test="materialTotalMoney != null">
+				material_total_money = #{materialTotalMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.scm.po.ShopProductMaterialRealtion">
+		update shop_product_material_realtion
+		set product_id = #{productId,jdbcType=INTEGER},
+		material_id = #{materialId,jdbcType=INTEGER},
+		material_unit_price = #{materialUnitPrice,jdbcType=DECIMAL},
+		material_total_num = #{materialTotalNum,jdbcType=DECIMAL},
+		material_total_money = #{materialTotalMoney,jdbcType=DECIMAL},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- Self Data Start -->
+	<select id="selectRealtionByProductId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from shop_product_material_realtion
+		where product_id = #{productId,jdbcType=INTEGER}
+	</select>
+	<!-- Self Data End -->
+</mapper>
